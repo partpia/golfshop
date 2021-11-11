@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Products</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h2>Own products</h2>
+	<div>
+		<table class="table table-striped">
+			<tr class="table-success table-bordered border-dark">
+				<th>Name</th>
+				<th>Description</th>
+				<th>Brand</th>
+				<th>Price</th>
+				<th>Category</th>
+				<th>Gender</th>
+				<th>Published</th>
+			<tr th:each="product : ${products}">
+				<td th:text="${product.name}"></td>
+				<td th:text="${product.description}"></td>
+				<td th:text="${product.brand.name}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${product.category.name}"></td>
+				<td th:text="${product.gender.genderName}"></td>
+				<td th:text="${#dates.format(product.publicationDate, 'dd.MM.yyyy')}"></td>
+				<td sec:authorize="isAuthenticated()" th:text="${product.seller.firstName}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

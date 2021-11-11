@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Brands</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+ <div class="container" style="margin:20px">
+	<h2>Brands <small class="text-muted">| Information</small></h2>
+	<div class="row">
+		<p class="lead col-4">Edit, delete or add new brand.</p>
+		<div class="col-8">
+				<a href="/newbrand" class="btn btn-success">Add brand</a>
+				<a href="/productlist" class="btn btn-secondary">Return to Products</a>
+		</div>
+	</div>
+	<div style="width:650px">
+		<table class="table  table align-middle  " >
+			<tr class="table-success">
+				<th>Name</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr th:each="brand : ${brands}">
+				<td th:text="${brand.name}"></td>
+				<td><a th:href="@{/edit/brand/{id}/(id=${brand.brandId})}" class="btn btn-outline-success btn-sm">Edit</a></td>
+				<td><a th:href="@{delete/brand/{id}/(id=${brand.brandId})}" class="btn btn-outline-danger btn-sm">Delete</a>
+			</tr>	
+		</table>
+	</div>
+</div>
+</body>
+</html>

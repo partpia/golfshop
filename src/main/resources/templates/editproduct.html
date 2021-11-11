@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit product</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body class="bg-success p-2 text-dark bg-opacity-10">
+	<div class="container" style="margin:20px">
+	<h2>Edit product <small class="text-muted">| Information</small></h2>
+	<div style="clear: both; display: block; height: 25px;"></div>
+		
+		<form th:object="${product}" th:action="@{/saveproduct}" action="#" method="post" class="row g-3">
+		  	<div class="row">
+		  		<input type="hidden" name="productId" id="productId" th:field="*{productId}"/>
+		  		<!-- NAME -->
+		  		<div class="col">
+		    		<label for="name" class="form-label">Name</label>
+					<input type="text" id="name" name="name" required th:field="*{name}" class="form-control"/>
+		  		</div>
+		  		<!-- DESCRIPTION-->
+		    	<div class="col">
+		    		<label for="description" class="form-label">Description</label>
+					<textarea id="description" name="description" required th:field="*{description}" class="form-control" rows="3"></textarea>
+		  		</div>
+		  	</div>
+		  	<div class="row">
+		    	<!-- BRAND -->
+		    	<div class="col">
+			    	<label for="brand" class="form-label">Brand</label>
+					<select id="brand" name="brand" th:field="*{brand}" class="form-select">
+						<option th:each="brand : ${brands}"
+							th:value="${brand.brandId}"
+							th:text="${brand.name}"></option>
+					</select>
+				</div>
+				<!-- CATEGORY -->
+				<div class="col">
+					<label for="category" class="form-label">Category</label>
+		  			<select id="category" name="category" th:field="*{category}" class="form-select">
+						<option th:each="category : ${categories}"
+							th:value="${category.categoryId}"
+							th:text="${category.name}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<!-- PRICE -->
+				<div class="col">
+		    		<label for="price" class="form-label">Price</label>
+					<input type="number" id="price" name="price" step="any" min="0" required th:field="*{price}" class="form-control"/>
+				</div>
+				<!-- GENDER -->
+				<div class="col-md-6">
+		    		<label for="gender" class="form-check-label">Gender</label>
+					<div class="form-check">
+						<div th:each="gender : ${genders}">
+							<input type="radio" th:field="*{gender}" th:value="${gender}" th:text="${gender.genderName}" required="required" class="form-check-input"/>
+						</div>
+					</div>
+		  		</div>
+		  	</div>
+			<input type="hidden" id="publicationDate" name="publicationDate" th:field="*{publicationDate}"/>
+			<input type="hidden" id="seller" name="seller" th:field="*{seller}" readonly="readonly" />
+			<input type="submit" value="Save" class="btn btn-success" />
+		</form>
+</div>
+</body>
+</html>

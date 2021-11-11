@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit brand</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body class="bg-success p-2 text-dark bg-opacity-10">
+	<div class="container" style="margin:20px">
+		<h2>Edit brand
+			<small class="text-muted"> | name</small>
+		</h2>
+		<div class="mb-3">
+			<form th:object="${brand}" th:action="@{/savebrand}" action="#" method="post">
+				<input type="hidden" id="id" th:field="*{BrandId}"/>
+				<label for="name" class="form-label">Brand name</label>
+				<input type="text" id="name" th:field="*{name}" class="form-control"/>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="submit" value="Save changes" class="btn btn-success" />
+				<a href="/brandlist" class="btn btn-secondary">Cancel</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
