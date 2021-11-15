@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Category {
@@ -15,6 +16,8 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
+	
+	@NotEmpty(message = "Category name must not be empty")
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
@@ -29,7 +32,7 @@ public class Category {
 		super();
 		this.name = name;
 	}
-
+	//setters
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -41,7 +44,7 @@ public class Category {
 	public void setCategoryProducts(List<Product> categoryProducts) {
 		this.categoryProducts = categoryProducts;
 	}
-
+	// getters
 	public Long getCategoryId() {
 		return categoryId;
 	}

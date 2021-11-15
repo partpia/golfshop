@@ -3,6 +3,7 @@ package hh.swd20.golfshop.domain;
 public enum Gender {
 	MALE("Male"),
 	FEMALE("Female"),
+	JUNIOR("Junior"),
 	UNISEX("Unisex");
 	
 	private final String genderName;

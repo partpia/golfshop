@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Brand {
@@ -15,6 +17,8 @@ public class Brand {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long brandId;
+	
+	@NotEmpty(message = "Brand name must not be empty")
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "brand")
@@ -29,7 +33,7 @@ public class Brand {
 		super();
 		this.name = name;
 	}
-
+	// setters
 	public void setBrandId(Long brandId) {
 		this.brandId = brandId;
 	}
@@ -41,7 +45,7 @@ public class Brand {
 	public void setBrandProducts(List<Product> brandProducts) {
 		this.brandProducts = brandProducts;
 	}
-
+	// getters
 	public Long getBrandId() {
 		return brandId;
 	}

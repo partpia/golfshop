@@ -6,21 +6,24 @@
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
-	<div class="container" style="margin:20px">
-		<h2>New product <small class="text-muted">| Information</small></h2>
-		<div style="clear: both; display: block; height: 10px;"></div>
-		
+	<div class="container" style="margin:30px">
+		<h2>Add product <small class="text-muted">| Information</small></h2>
+		<hr class="solid">
+		<p class="lead">Fill in the form below, click Save and let the new life of your golf equipment begin!</p><br/>
+		<!-- form to add new product, checks if input has errors -->
 		<form th:object="${product}" th:action="@{/saveproduct}" action="#" method="post" class="row g-3">
 		  	<div class="row">
 		  		<!-- NAME -->
 		  		<div class="col">
 		    		<label for="name" class="form-label">Name</label>
-					<input type="text" id="name" name="name" required th:field="*{name}" class="form-control"/>
+					<input type="text" id="name" name="name" th:field="*{name}" class="form-control"/>
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Error</p><br/>
 		  		</div>
 		  		<!-- DESCRIPTION-->
 		    	<div class="col">
 		    		<label for="description" class="form-label">Description</label>
-					<textarea id="description" name="description" required th:field="*{description}" class="form-control" rows="3"></textarea>
+					<textarea id="description" name="description" th:field="*{description}" class="form-control" rows="3"></textarea>
+		  			<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color:red">Error</p><br/>
 		  		</div>
 		  	</div>
 		  	<div class="row">
@@ -48,6 +51,7 @@
 				<div class="col">
 		    		<label for="price" class="form-label">Price</label>
 					<input type="number" id="price" name="price" step="any" min="0" required th:field="*{price}" class="form-control"/>
+					<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red">Error</p><br/>
 				</div>
 				<!-- GENDER -->
 				<div class="col-md-6">
@@ -61,8 +65,10 @@
 		  	</div>
 			<input type="hidden" id="publicationDate" name="publicationDate" th:value="${#dates.format(publicationDate, 'yyyy-MM-dd')}"/>
 			<input type="hidden" id="seller" name="seller" th:value="${seller}" readonly="readonly" />
-			<input type="submit" value="Save" class="btn btn-success" />
-			<a href="/productlist" class="btn btn-secondary">Cancel</a>
+			<div>
+				<input type="submit" value="Save" class="btn btn-success" />
+				<a href="/" class="btn btn-secondary">Cancel</a>
+			</div>
 		</form>
 	</div>
 </body>

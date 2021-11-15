@@ -25,12 +25,14 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	// empty sign up -form
 	@GetMapping("/signup")
 	public String createUser(Model model) {
 		model.addAttribute("signupform", new SignUpForm());
 		return "signup";
 	}
 	
+	// save new user
 	@PostMapping("/saveuser")
 	public String saveUser(@Valid @ModelAttribute("signupform") SignUpForm signUpForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {	// validation errors
@@ -64,6 +66,7 @@ public class UserController {
 		return "redirect:/login";
 	}
 	
+	// user-info to user's account
 	@GetMapping("/myaccount/{user}")
 	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
 	public String findUserById(@PathVariable(value = "user") String username, Model model, Principal principal) {

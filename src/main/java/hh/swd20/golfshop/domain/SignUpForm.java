@@ -5,28 +5,28 @@ import javax.validation.constraints.Size;
 
 public class SignUpForm {
 	
-	@NotEmpty
-	@Size(min=5, max=30)
+	@NotEmpty(message = "Please choose a username")
+	@Size(min=5, max=30, message = "Size must be between 5 and 30")
 	private String username = "";
 	
-	@NotEmpty
-	@Size(min=8, max=30)
+	@NotEmpty(message = "Please fill in password")
+	@Size(min=8, max=30, message = "Size must be between 8 and 30")
 	private String password = "";
 	
-	@NotEmpty
-	@Size(min=8, max=30)
+	@NotEmpty(message = "Please fill in password")
+	@Size(min=8, max=30, message = "Size must be between 8 and 30")
 	private String passwordCheck = "";
 	
-	@NotEmpty
+	@NotEmpty(message = "Please fill in your first name")
 	private String firstName;
 	
-	@NotEmpty
+	@NotEmpty(message = "Please fill in your last name")
 	private String lastName;
 	
-	@NotEmpty
+	@NotEmpty(message = "Please fill in your first email")
 	private String email;
 	
-	@NotEmpty
+	@NotEmpty(message = "Please fill in your first phonenumber")
 	private String phoneNumber;
 	
 	@NotEmpty

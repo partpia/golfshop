@@ -6,18 +6,23 @@
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
-<div class="container" style="margin:30px">
-	<h2>Add brand <small class="text-muted">| name</small></h2>
-	<div style="clear: both; display: block; height: 30px;"></div>
-	<div class="mb-3" style="width:400px">	
-		<form th:object="${brand}" th:action="@{/savebrand}" action="#" method="post">
-			<label for="brand" class="form-label">New brand</label>
-			<input type="text" id="brand" th:field="*{name}" class="form-control" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="submit" value="Save" class="btn btn-success"/>
-			<a href="/brandlist" class="btn btn-secondary">Cancel</a>
-		</form>
-	</div>
+	<div class="container" style="margin:30px">
+		<!-- HEADER -->
+		<h2>Add brand <small class="text-muted">| name</small></h2>
+		<div style="clear: both; display: block; height: 30px;"></div>
+		<div class="mb-3" style="width:400px">	
+		<!-- form to add new brand, checks if input has errors -->
+			<form th:object="${brand}" th:action="@{/savebrand}" action="#" method="post">
+				<div>
+					<label for="brand" class="form-label">Brand name</label>
+					<input type="text" id="brand" th:field="*{name}" class="form-control" />
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Error</p><br/>
+				</div>
+				<!-- BUTTONS -->
+				<input type="submit" value="Save" class="btn btn-success"/>
+				<a href="/brandlist" class="btn btn-secondary">Cancel</a>
+			</form>	
+		</div>
 	</div>
 </body>
 </html>

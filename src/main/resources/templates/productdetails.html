@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Product</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body class="bg-success p-2 text-dark bg-opacity-10">
+	<div class="container" style="margin:30px">
+		<!-- HEADER -->
+		<h2>Product <small class="text-muted">| details</small></h2>
+		<div class="row" style="margin-top:40px">
+			<div class="col">
+				<h6><b>Name</b></h6>
+				<p th:text="${product.name}"></p>
+				<h6><b>Description</b></h6>
+				<p th:text="${product.description}"></p>
+				<h6><b>Brand</b></h6>
+				<p th:text="${product.brand.name}"></p>
+				<h6><b>Price</b></h6>
+				<p th:text="${product.price}"></p>
+				<h6><b>Category</b></h6>
+				<p th:text="${product.category.name}"></p>
+			</div>
+			<div class="col">
+				<h6><b>Gender</b></h6>
+				<p th:text="${product.gender.genderName}"></p>
+				<h6><b>Published</b></h6>
+				<p th:text="${#dates.format(product.publicationDate, 'dd.MM.yyyy')}"></p>
+				<h6><b>Seller</b></h6>
+				<p th:text="${product.seller.firstName} + ' ' + ${product.seller.lastName}"></p>
+				<h6><b>Email</b></h6>
+				<p th:text="${product.seller.email}"></p>
+				<h6><b>Phone number</b></h6>
+				<p th:text="${product.seller.phoneNumber}"></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

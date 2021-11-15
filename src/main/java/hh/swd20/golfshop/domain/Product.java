@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,9 +22,12 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productId;
+	@NotEmpty(message = "Please fill in name")
 	private String name;
+	@NotEmpty(message = "Please fill in description")
 	private String description;
 	private Gender gender;
+	@NotNull
 	private double price;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
