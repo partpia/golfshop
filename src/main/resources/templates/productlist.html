@@ -3,63 +3,23 @@
 <head>
 	<title>Products</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <div class="container-fluid">
-    <a class="navbar-brand mb-0 h1" href="/">Products</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      	<li sec:authorize="isAuthenticated()" class="nav-item">
-          <a class="nav-link active" href="/newproduct">Add product</a>
-        </li>
-        <li sec:authorize="isAuthenticated()" class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/myaccount/{user}(user=${#authentication.name})}">My account</a>
-        </li>
-        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Brands&Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/brandlist">Brands</a></li>
-            <li><a class="dropdown-item" href="/categorylist">Categories</a></li>
-          </ul>
-        </li>
-      </ul>
-      <div class="navbar-collapse collapse">
-        <ul class="navbar-nav ms-auto">
-            <li sec:authorize="isAnonymous()" class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/login">Log in</a>
-            </li>
-            <li sec:authorize="isAnonymous()" class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/signup">Sign up</a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/logout">Log out</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-  </div>
-</nav>
-<div class="container" style="margin:30px">
+	<div th:replace="/navbar :: header"></div>
+	<div class="container" style="margin:30px">
 		<h2>Golf Products
-			<small class="text-muted"> | Online store for pre-owned golf equipment</small><br><br>
-			<small class="text-muted"> | Welcome [[${#httpServletRequest.remoteUser}]]</small><br><br>
+			<small class="text-muted"> | Online store for pre-owned golf equipment | Welcome [[${#httpServletRequest.remoteUser}]]</small><br>
 		</h2>
 		<div class="row">
-			<p class="lead col">This is a home of used golf equipments. If you want to sell, sign up. </p>
+			<p class="lead col">This is a home of used golf equipments. If you want to sell or buy, please sign up.</p>
 			</div>
 		</div>
 		<table class="table table-striped">
 			<tr class="table-success table-bordered border-dark">
-				<th>Name</th>
-				<th>Description</th>
+				<th style="width:15%">Name</th>
+				<th style="width:25%">Description</th>
 				<th>Brand</th>
 				<th>Price</th>
 				<th>Category</th>
@@ -90,6 +50,5 @@
 					<a th:href="@{/delete/product/{id}(id=${product.productId})}" class="btn btn-outline-danger btn-sm">Delete</a></td>
 			</tr>	
 		</table>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

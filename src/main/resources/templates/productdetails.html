@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Product</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
+ 	<!-- NAVBAR -->
+ 	<div th:replace="/navbar :: header"></div>
 	<div class="container" style="margin:30px">
-		<!-- HEADER -->
 		<h2>Product <small class="text-muted">| details</small></h2>
 		<div class="row" style="margin-top:40px">
 			<div class="col">
@@ -35,6 +36,8 @@
 				<p th:text="${product.seller.phoneNumber}"></p>
 			</div>
 		</div>
+		<br/>
+		<a href="/" class="btn btn-secondary">Return to Golf Products</a>
 	</div>
 </body>
 </html>

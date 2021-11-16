@@ -54,6 +54,9 @@ public class CategoryController {
 	// edit form, pre-filled with information saved in the database
 	@GetMapping("/edit/category/{id}")
 	public String editCategory(@PathVariable(value = "id") Long id, Model model) {
+		if (categoryRepository.findById(id).isEmpty()) {
+			return "errormsg";
+		}
 		model.addAttribute("category", categoryRepository.findById(id));
 		return "editcategory";
 	}
@@ -72,8 +75,12 @@ public class CategoryController {
 	// delete category from the database
 	@GetMapping("/delete/category/{id}")
 	public String deleteCategory(@PathVariable(value = "id") Long id) {
-		categoryRepository.deleteById(id);
-		return "redirect:/categorylist";
+		try {
+			categoryRepository.deleteById(id);
+			return "redirect:/categorylist";
+		} catch (Exception e) {
+			return "errormsg";
+		}
 	}
 
 }

@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Add product</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
+	<div th:replace="/navbar :: header"></div>
 	<div class="container" style="margin:30px">
 		<h2>Add product <small class="text-muted">| Information</small></h2>
 		<hr class="solid">
-		<p class="lead">Fill in the form below, click Save and let the new life of your golf equipment begin!</p><br/>
+		<p class="lead">Fill in the form below, click Save and let the new life of your golf equipment begin!</p>
+		<p><b>NB!</b> Your email and phone number will be automatically included in product details.</p><br/>
 		<!-- form to add new product, checks if input has errors -->
 		<form th:object="${product}" th:action="@{/saveproduct}" action="#" method="post" class="row g-3">
 		  	<div class="row">

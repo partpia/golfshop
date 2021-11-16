@@ -30,7 +30,7 @@ public class BrandController {
 	@GetMapping("/brandlist")
 	public String getAllBrands(Model model) {
 		model.addAttribute("brands", brandRepository.findAll());
-		return "brandlist";	// TODO: html?
+		return "brandlist";
 	}
 	
 	// empty brand form
@@ -54,6 +54,9 @@ public class BrandController {
 	// edit form, pre-filled with information saved in the database
 	@GetMapping("/edit/brand/{id}")
 	public String editBrand(@PathVariable(value = "id") Long id, Model model) {
+		if (brandRepository.findById(id).isEmpty()) {
+			return "errormsg";
+		}
 		model.addAttribute("brand", brandRepository.findById(id));
 		return "editbrand";
 	}
@@ -72,8 +75,12 @@ public class BrandController {
 	// delete brand from the database
 	@GetMapping("/delete/brand/{id}")
 	public String deleteBrand(@PathVariable(value = "id") Long id) {
-		brandRepository.deleteById(id);
-		return "redirect:/brandlist";
+		try {
+			brandRepository.deleteById(id);
+			return "redirect:/brandlist";
+		} catch (Exception e) {
+			return "errormsg";
+		}
 	}
 
 }

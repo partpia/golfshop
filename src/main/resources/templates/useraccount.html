@@ -7,46 +7,7 @@
 </head>
 <body class="bg-success p-2 text-dark bg-opacity-10">
 	<!-- NAVBAR -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-	  <div class="container-fluid">
-	    <a class="navbar-brand mb-0 h1" href="/">Products</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-	      	<li sec:authorize="isAuthenticated()" class="nav-item">
-	          <a class="nav-link active" href="/newproduct">Add product</a>
-	        </li>
-	        <li sec:authorize="isAuthenticated()" class="nav-item">
-	          <a class="nav-link active" aria-current="page" th:href="@{/myaccount/{user}(user=${#authentication.name})}">My account</a>
-	        </li>
-	        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            Brands&Categories
-	          </a>
-	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	            <li><a class="dropdown-item" href="/brandlist">Brands</a></li>
-	            <li><a class="dropdown-item" href="/categorylist">Categories</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	      <div class="navbar-collapse collapse">
-	        <ul class="navbar-nav ms-auto">
-	            <li sec:authorize="isAnonymous()" class="nav-item">
-	                <a class="nav-link active" aria-current="page" href="/login">Log in</a>
-	            </li>
-	            <li sec:authorize="isAnonymous()" class="nav-item">
-	                <a class="nav-link active" aria-current="page" href="/signup">Sign up</a>
-	            </li>
-	            <li sec:authorize="isAuthenticated()" class="nav-item">
-	                <a class="nav-link active" aria-current="page" href="/logout">Log out</a>
-	            </li>
-	         </ul>
-	        </div>
-	    </div>
-	  </div>
-	</nav>
+	<div th:replace="/navbar :: header"></div>
 	<div class="container" style="margin:20px">
 		<h2>My <small class="text-muted">| account</small></h2>
 		<!-- USER INFO -->

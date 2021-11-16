@@ -50,17 +50,20 @@ public class ProductController {
 		return (List<Product>) productRepository.findAll(); 
 	}
 	
-	// all products from the database
+	// all products from the database, home page
 	@GetMapping("/")
 	public String getAllProducts(Model model) {
 		model.addAttribute("products", productRepository.findAll());
-		return "productlist"; // TODO: add html
+		return "productlist";
 	}
 	
 	// find by id, shows more detailed product-info to users
 	@GetMapping("/product/{id}")
 	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
 	public String findProductById(@PathVariable(value = "id") Long id, Model model) {
+		if (productRepository.findById(id).isEmpty()) {
+			return "errormsg";
+		}
 		Optional<Product> product = productRepository.findById(id);
 		model.addAttribute("product", product.get());
 		return "productdetails";
@@ -105,10 +108,13 @@ public class ProductController {
 	}
 	
 	// edit form, pre-filled with information saved in the database
-	// users can edit only their own products, admin can edit all the products from the database
+	// users can edit only their own products, admin can edit all products from the database
 	@GetMapping("/edit/product/{id}/{user}")
 	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
 	public String editProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Model model) {
+		if (productRepository.findById(id).isEmpty()) {
+			return "errormsg";
+		}
 		model.addAttribute("product", productRepository.findById(id));
 		model.addAttribute("brands", brandRepository.findAll());
 		model.addAttribute("categories", categoryRepositor.findAll());
@@ -135,8 +141,12 @@ public class ProductController {
 	@GetMapping("/delete/product/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteProduct(@PathVariable(value = "id") Long id) {
-		productRepository.deleteById(id);
-		return "redirect:/";
+		try {
+			productRepository.deleteById(id);
+			return "redirect:/";
+		} catch (Exception e) {
+			return "errormsg";
+		}
 	}
 	
 }

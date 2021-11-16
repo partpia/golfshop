@@ -1,5 +1,7 @@
 package hh.swd20.golfshop;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -89,13 +91,31 @@ public class GolfshopApplication {
 			userRepository.save(user4);
 			
 			log.info("Save a couple products");
-			Product product1 = new Product("D300", "Yhden kesän pelatut", Gender.FEMALE, 199.90, new Date(), brand9, category4, user3);
-			Product product2 = new Product("Pro V1 Yellow", "Vajaa pakkaus, 10kpl, käyttämättömät", Gender.UNISEX, 39.90, new Date(), brand8, category2, user4);
-			Product product3 = new Product("Miesten talvihanskat", "Mustat, kerran käytetyt", Gender.MALE, 17.80, new Date(), brand1, category6, user2);
+			// dates
+			LocalDate lDate1 = LocalDate.of(2021, 7, 26);
+			LocalDate lDate2 = LocalDate.of(2021, 9, 9);
+			LocalDate lDate3 = LocalDate.of(2021, 10, 7);
+			LocalDate lDate4 = LocalDate.of(2021, 11, 3);
+			
+			Date date1 = Date.from(lDate1.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			Date date2 = Date.from(lDate2.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			Date date3 = Date.from(lDate3.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			Date date4 = Date.from(lDate4.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			
+			Product product1 = new Product("Stand Bag, Hippo", "Big opportunity! Blue-white, lightweight, lots of pockets, rain hood included.", Gender.UNISEX, 325.50, date1, brand10, category10, user4);
+			Product product2 = new Product("D300", "Irons 9-6, P, S. Little scratched, grips as good as new. Great clubs for beginnner!", Gender.FEMALE, 199.90, date2, brand9, category4, user3);
+			Product product3 = new Product("Cross W Hurricaine rain jacket", "Used couple of times, too small for me. Black-white, size 34.", Gender.FEMALE, 100, date2, brand10, category5, user3);
+			Product product4 = new Product("Ping cap", "Pink Ping cap, a small makeup stain inside.", Gender.FEMALE, 12, date2, brand5, category5, user3);
+			Product product5 = new Product("Pro V1 Yellow", "Half-empty packet, 6 balls.", Gender.UNISEX, 19.90, date3, brand8, category2, user4);
+			Product product6 = new Product("Winter gloves - pair", "Black, used only once, size L.", Gender.MALE, 17.80, date4, brand1, category6, user2);
 			
 			productRepository.save(product1);
 			productRepository.save(product2);
 			productRepository.save(product3);
+			productRepository.save(product4);
+			productRepository.save(product5);
+			productRepository.save(product6);
+			
 		};
 	}
 

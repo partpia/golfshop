@@ -74,15 +74,15 @@ public class Product {
 	}
 	// tämä testausta varten
 	public Product(String name, String description, Gender gender, double price,
-			Brand brand, Category category, Date publicationDate) {
+			Date publicationDate, Brand brand, Category category) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.gender = gender;
+		this.publicationDate = publicationDate;
 		this.price = price;
 		this.brand = brand;
 		this.category = category;
-		this.publicationDate = publicationDate;
 	}
 	
 	public Product(String name, String description, Gender gender, double price,
