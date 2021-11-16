@@ -51,7 +51,7 @@ public class ProductController {
 	}
 	
 	// all products from the database, home page
-	@GetMapping("/")
+	@GetMapping("/productlist")
 	public String getAllProducts(Model model) {
 		model.addAttribute("products", productRepository.findAll());
 		return "productlist";
