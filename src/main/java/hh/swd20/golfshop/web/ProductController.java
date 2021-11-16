@@ -45,13 +45,13 @@ public class ProductController {
 
 	// REST : all products
 	@CrossOrigin
-	@GetMapping("/")
+	@GetMapping("/products")
 	public @ResponseBody List<Product> productListRest() {
 		return (List<Product>) productRepository.findAll(); 
 	}
 	
 	// all products from the database, home page
-	@GetMapping("/productlist")
+	@GetMapping("/")
 	public String getAllProducts(Model model) {
 		model.addAttribute("products", productRepository.findAll());
 		return "productlist";
