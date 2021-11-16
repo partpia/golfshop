@@ -45,7 +45,7 @@ public class ProductController {
 
 	// REST : all products
 	@CrossOrigin
-	@GetMapping("/products")
+	@GetMapping("/")
 	public @ResponseBody List<Product> productListRest() {
 		return (List<Product>) productRepository.findAll(); 
 	}
