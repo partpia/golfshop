@@ -42,7 +42,13 @@ public class ProductController {
 	private CategoryRepository categoryRepositor;
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	// error
+	@GetMapping("/error")
+	public String errorMessage() {
+		return "errormsg";
+	}
+	
 	// REST : all products
 	@CrossOrigin
 	@GetMapping("/products")
@@ -114,7 +120,10 @@ public class ProductController {
 	public String editProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Model model, Principal principal) {
 		Optional<Product> product = productRepository.findById(id);
 		String productOwnerName = product.get().getSeller().getUsername();
-		if (productOwnerName.matches(principal.getName())) {
+		String loggedInName = principal.getName();
+		String role = userRepository.findByUsername(loggedInName).getRole();
+		
+		if (productOwnerName.matches(loggedInName) || role.matches("ADMIN")) {
 			model.addAttribute("product", productRepository.findById(id));
 			model.addAttribute("brands", brandRepository.findAll());
 			model.addAttribute("categories", categoryRepositor.findAll());
@@ -146,7 +155,10 @@ public class ProductController {
 	public String deleteProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Principal principal) {
 		Optional<Product> product = productRepository.findById(id);
 		String productOwnerName = product.get().getSeller().getUsername();
-		if (productOwnerName.matches(principal.getName())) {
+		String loggedInName = principal.getName();
+		String role = userRepository.findByUsername(loggedInName).getRole();
+		
+		if (productOwnerName.matches(loggedInName) || role.matches("ADMIN")) {
 			try {
 				productRepository.deleteById(id);
 				return "redirect:/";
