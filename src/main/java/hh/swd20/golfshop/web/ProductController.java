@@ -41,7 +41,7 @@ public class ProductController {
 	@Autowired
 	private CategoryRepository categoryRepositor;
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	// REST : all products
 	@CrossOrigin
@@ -111,15 +111,18 @@ public class ProductController {
 	// users can edit only their own products, admin can edit all products from the database
 	@GetMapping("/edit/product/{id}/{user}")
 	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
-	public String editProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Model model) {
-		if (productRepository.findById(id).isEmpty()) {
+	public String editProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Model model, Principal principal) {
+		Optional<Product> product = productRepository.findById(id);
+		String productOwnerName = product.get().getSeller().getUsername();
+		if (productOwnerName.matches(principal.getName())) {
+			model.addAttribute("product", productRepository.findById(id));
+			model.addAttribute("brands", brandRepository.findAll());
+			model.addAttribute("categories", categoryRepositor.findAll());
+			model.addAttribute("genders", Gender.values());
+			return "editproduct";
+		} else {
 			return "errormsg";
 		}
-		model.addAttribute("product", productRepository.findById(id));
-		model.addAttribute("brands", brandRepository.findAll());
-		model.addAttribute("categories", categoryRepositor.findAll());
-		model.addAttribute("genders", Gender.values());
-		return "editproduct";	
 	}
 	
 	// input from edited product form, returns back if errors, otherwise updates product
@@ -140,11 +143,17 @@ public class ProductController {
 	// delete product
 	@GetMapping("/delete/product/{id}/{user}")
 	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
-	public String deleteProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username) {
-		try {
-			productRepository.deleteById(id);
-			return "redirect:/";
-		} catch (Exception e) {
+	public String deleteProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username, Principal principal) {
+		Optional<Product> product = productRepository.findById(id);
+		String productOwnerName = product.get().getSeller().getUsername();
+		if (productOwnerName.matches(principal.getName())) {
+			try {
+				productRepository.deleteById(id);
+				return "redirect:/";
+			} catch (Exception e) {
+				return "errormsg";
+			}
+		} else {
 			return "errormsg";
 		}
 	}
