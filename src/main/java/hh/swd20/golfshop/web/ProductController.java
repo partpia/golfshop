@@ -42,13 +42,7 @@ public class ProductController {
 	private CategoryRepository categoryRepositor;
 	@Autowired
 	private UserRepository userRepository;
-	
-	// error
-	@GetMapping("/error")
-	public String errorMessage() {
-		return "errormsg";
-	}
-	
+		
 	// REST : all products
 	@CrossOrigin
 	@GetMapping("/products")
