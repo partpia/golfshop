@@ -13,7 +13,7 @@
 			<small class="text-muted"> | Online store for pre-owned golf equipment | Welcome [[${#httpServletRequest.remoteUser}]]</small><br>
 		</h2>
 		<div class="row">
-			<p class="lead col">This is a home of used golf equipments. If you want to sell or buy, please sign up.</p>
+			<p class="lead col">This is a home of used golf equipments. If you want to sell or buy, please log in or sign up!</p>
 			</div>
 		</div>
 		<table class="table table-striped">
@@ -40,7 +40,7 @@
 				<td th:text="${product.gender.genderName}"></td>
 				<td th:text="${#dates.format(product.publicationDate, 'dd.MM.yyyy')}"></td>
 				<td sec:authorize="isAuthenticated()">
-					<a th:href="@{/product/{id}(id=${product.productId})}" style="color:black"><i data-feather="info"></i></a>
+					<a th:href="@{/product/{id}(id=${product.productId})}" style="color:rgb(0, 128, 192)"><i data-feather="info"></i></a>
 				</td>
 				<!-- user can edit his/hers own products, admin can edit all products -->
 				<td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${#authentication.name} == ${product.seller.username}">

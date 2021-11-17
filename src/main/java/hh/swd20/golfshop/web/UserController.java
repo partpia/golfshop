@@ -70,7 +70,7 @@ public class UserController {
 	@GetMapping("/myaccount/{user}")
 	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
 	public String findUserById(@PathVariable(value = "user") String username, Model model, Principal principal) {
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(principal.getName());
 		model.addAttribute("user", user);
 		return "useraccount";
 		

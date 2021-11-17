@@ -80,7 +80,7 @@ public class GolfshopApplication {
 			brandRepository.save(brand10);
 			
 			log.info("Save users");
-			User user1 = new User("user", "$2a$10$8LaV9cSMGuHcoSxUs0CHrOAg0OCX2l.ccP7RO/sF5C6xjADnciE06", "User", "UserLast", "user@user.fi", "1234567", "USER");
+			User user1 = new User("user", "$2a$10$8LaV9cSMGuHcoSxUs0CHrOAg0OCX2l.ccP7RO/sF5C6xjADnciE06", "Untamo", "User", "user@user.fi", "1234567", "USER");
 			User user2 = new User("admin", "$2a$10$dBWnLMvsvVUzxt8pBpnOteDNcDM0PzErA.hEEsjOpnSX156rhrj5u", "Aino", "Admin", "admin@admin.com", "7654321", "ADMIN");
 			User user3 = new User("kerttuli", "$2a$10$QXo6wkng3.hJ9kLgErZLzO9PfsjBYhIdQ09ylqmMA.G65jZebfntG", "Kerttu", "Leppä", "leppa@kerttu.fi", "050123457", "USER");
 			User user4 = new User("r.reipas", "$2a$10$qhK8d9Qa0KFCAAMVfCmSc.E9qiI28c.LPBm3crN2lc1D.5z9ro95S", "Risto", "Reipas", "rreipas@mail.com", "0507654321", "USER");
@@ -108,6 +108,7 @@ public class GolfshopApplication {
 			Product product4 = new Product("Ping cap", "Pink Ping cap, a small makeup stain inside.", Gender.FEMALE, 12, date2, brand5, category5, user3);
 			Product product5 = new Product("Pro V1 Yellow", "Half-empty packet, 6 balls.", Gender.UNISEX, 19.90, date3, brand8, category2, user4);
 			Product product6 = new Product("Winter gloves - pair", "Black, used only once, size L.", Gender.MALE, 17.80, date4, brand1, category6, user2);
+			Product product7 = new Product("TaylorMade towel", "Purple but small. White TaylorMade logo.", Gender.UNISEX, 9.90, new Date(), brand7, category8, user1);
 			
 			productRepository.save(product1);
 			productRepository.save(product2);
@@ -115,6 +116,7 @@ public class GolfshopApplication {
 			productRepository.save(product4);
 			productRepository.save(product5);
 			productRepository.save(product6);
+			productRepository.save(product7);
 			
 		};
 	}
