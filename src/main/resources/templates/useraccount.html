@@ -31,8 +31,8 @@
 		<div th:unless="${user.sellings.isEmpty()}">
 			<table class="table table-striped">
 				<tr>
-					<th>Name</th>
-					<th>Description</th>
+					<th style="width:20%">Name</th>
+					<th style="width:25%">Description</th>
 					<th>Brand</th>
 					<th>Price</th>
 					<th>Category</th>
@@ -45,15 +45,18 @@
 					<td th:text="${selling.name}"></td>
 					<td th:text="${selling.description}"></td>
 					<td th:text="${selling.brand.name}"></td>
-					<td th:text="${selling.price} +€"></td>
+					<td th:text="${#numbers.formatDecimal(selling.price,1,2)} + ' €'"></td>
 					<td th:text="${selling.category.name}"></td>
 					<td th:text="${selling.gender.genderName}"></td>
 					<td th:text="${#dates.format(selling.publicationDate, 'dd.MM.yyyy')}"></td>
-					<td><a th:href="@{/edit/product/{id}/{user}(id=${selling.productId}, user=${#authentication.getPrincipal().getUsername()})}" class="btn btn-outline-success btn-sm" >Edit</a></td>	
+					<td><a th:href="@{/edit/product/{id}/{user}(id=${selling.productId}, user=${#authentication.getPrincipal().getUsername()})}" style="color:green"><i data-feather="edit-3"></i></a></td>	
+					<td><a th:href="@{/delete/product/{id}/{user}(id=${selling.productId}, user=${#authentication.getPrincipal().getUsername()})}" style="color:red"><i data-feather="trash"></i></a></td>
 				</tr>
 			</table>
 		</div>
 	</div>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script>feather.replace()</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

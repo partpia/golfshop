@@ -27,13 +27,15 @@
 				<th>Published</th>
 				<th sec:authorize="isAuthenticated()">Info</th>
 				<th sec:authorize="isAuthenticated()"></th>
-				<th sec:authorize="hasAuthority('ADMIN')"></th>
+				<th sec:authorize="isAuthenticated()"></th>
+				<th sec:authorize="isAnonymous()"></th>
+				<th sec:authorize="isAnonymous()"></th>
 			</tr>
 			<tr th:each="product : ${products}" class="table-bordered border-dark">
 				<td th:text="${product.name}"></td>
 				<td th:text="${product.description}"></td>
 				<td th:text="${product.brand.name}"></td>
-				<td th:text="${product.price} +€"></td>
+				<td th:text="${#numbers.formatDecimal(product.price,1,2)} + ' €'"></td>
 				<td th:text="${product.category.name}"></td>
 				<td th:text="${product.gender.genderName}"></td>
 				<td th:text="${#dates.format(product.publicationDate, 'dd.MM.yyyy')}"></td>
@@ -44,9 +46,10 @@
 				<td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${#authentication.name} == ${product.seller.username}">
 					<a th:href="@{/edit/product/{id}/{user}(id=${product.productId}, user=${product.seller.username})}" style="color:green"><i data-feather="edit-3"></i></a></td>
 				<td th:unless="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${#authentication.name} == ${product.seller.username}"><a></a>
-				<!-- admin can delete -->
-				<td sec:authorize="hasAuthority('ADMIN')">
-					<a th:href="@{/delete/product/{id}(id=${product.productId})}" style="color:red"><i data-feather="trash"></i></a></td>
+				<!-- user can delete his/hers own products, admin can delete all products -->
+				<td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${#authentication.name} == ${product.seller.username}">
+					<a th:href="@{/delete/product/{id}/{user}(id=${product.productId}, user=${product.seller.username})}" style="color:red"><i data-feather="trash"></i></a></td>
+				<td th:unless="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${#authentication.name} == ${product.seller.username}"><a></a>
 			</tr>	
 		</table>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>

@@ -138,9 +138,9 @@ public class ProductController {
 	}
 	
 	// delete product
-	@GetMapping("/delete/product/{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public String deleteProduct(@PathVariable(value = "id") Long id) {
+	@GetMapping("/delete/product/{id}/{user}")
+	@PreAuthorize("#username == authentication.principal.username or hasAuthority('ADMIN')")
+	public String deleteProduct(@PathVariable(value = "id") Long id, @PathVariable(value = "user") String username) {
 		try {
 			productRepository.deleteById(id);
 			return "redirect:/";
